@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:03:14 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/07 21:28:21 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 16:14:27 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void iso(int *x, int *y, int z)
     previous_x = *x;
     previous_y = *y;
     *x = (previous_x - previous_y) * cos(0.523599);
-    *y = -z + (previous_x + previous_y) * sin(0.523599);
+    *y = -z  + (previous_x + previous_y) * sin(0.523599);
 }
 
 void		ft_choise_proj(t_map *map)
@@ -51,8 +51,8 @@ void		ft_choise_proj(t_map *map)
 				line->stop.y = map->points[i][j + 1].y;
 				if (map->proj == 1)
 				{
-					iso(&line->start.x, &line->start.y, map->points[i][j].z);
-					iso(&line->stop.x, &line->stop.y , map->points[i][j + 1].z);
+					iso(&line->start.x, &line->start.y, map->points[i][j].z * map->dz);
+					iso(&line->stop.x, &line->stop.y , map->points[i][j + 1].z * map->dz);
 				}
 				ft_print_line(map, line);
 
@@ -65,8 +65,8 @@ void		ft_choise_proj(t_map *map)
 				line->stop.y = map->points[i + 1][j].y;
 				if (map->proj == 1)
 				{
-					iso(&line->start.x, &line->start.y, map->points[i][j].z);
-					iso(&line->stop.x, &line->stop.y, map->points[i + 1][j].z);
+					iso(&line->start.x, &line->start.y, map->points[i][j].z * map->dz);
+					iso(&line->stop.x, &line->stop.y, map->points[i + 1][j].z * map->dz);
 				}
 				ft_print_line(map ,line);
 			}
@@ -83,6 +83,7 @@ static	void	ft_create_window(t_map *map)
 		map->mlx_ptr = mlx_init();
 		map->win_ptr = mlx_new_window(map->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FDF");
 	}
+	map->dz = 1;
 	map->proj = 0;
 	map->color = 0xE805FF;
 	ft_key_hook(map);

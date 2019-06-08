@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:35:36 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/07 21:12:00 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 16:06:00 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct		s_map
 	int			color;
 	int			proj;
 	char		*file;
+	int			dz;
 }					t_map;
 
 typedef struct		s_line

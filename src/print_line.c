@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:06:21 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/07 20:44:18 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 12:52:10 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	ft_print_line(t_map *map, t_line *line)
 	line->sx = line->dx < 0 ? -1 : 1;
 	f = 0;
 	arr = (int*)map->image->img_data;
-	arr[INDEX < 0 || INDEX > WIN_WIDTH * WIN_HEIGHT ? 0 : INDEX] = INDEX < 0 || INDEX > WIN_WIDTH * WIN_HEIGHT ? 0 : map->color;
+	if (!(INDEX < 0 || INDEX > WIN_WIDTH * WIN_HEIGHT))
+		arr[INDEX] = map->color;
+	else
+		arr[0] = 0;
 	x = line->start.x;
 	y = line->start.y;
 	if (sign == -1) 
@@ -48,7 +51,10 @@ void	ft_print_line(t_map *map, t_line *line)
 				y += line->sy;
 			}
 			x -= line->sx;
-			arr[INDEX2 < 0 || INDEX2 > WIN_WIDTH * WIN_HEIGHT ? 0 : INDEX2] = map->color;
+			if (!(INDEX2 < 0 || INDEX2 > WIN_WIDTH * WIN_HEIGHT))
+				arr[INDEX2] = map->color;
+			else
+				arr[0] = 0;
 		} 
 	}
 	else
@@ -61,7 +67,10 @@ void	ft_print_line(t_map *map, t_line *line)
 				x -= line->sx;
 			}
 			y += line->sy;
-			arr[INDEX2 < 0 || INDEX2 > WIN_WIDTH * WIN_HEIGHT ? 0 : INDEX2] = map->color;
+			if (!(INDEX2 < 0 || INDEX2 > WIN_WIDTH * WIN_HEIGHT))
+				arr[INDEX2] = map->color;
+			else
+				arr[0] = 0;
 		} 
 	}
 }
