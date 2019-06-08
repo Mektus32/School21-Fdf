@@ -6,34 +6,19 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:03:14 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 16:14:27 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 18:40:36 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void iso(int *x, int *y, int z)
-{
-    int previous_x;
-    int previous_y;
-
-    previous_x = *x;
-    previous_y = *y;
-    *x = (previous_x - previous_y) * cos(0.523599);
-    *y = -z  + (previous_x + previous_y) * sin(0.523599);
-}
-
 void		ft_choise_proj(t_map *map)
 {
 	int		i;
 	int		j;
-	t_line *line;
+	t_line	*line;
 
-	map->image = ft_memalloc(sizeof(t_image));
 	map->image->img_ptr = mlx_new_image(map->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	map->image->bpp = 64;
-	map->image->endian = 0;
-	map->image->size_line = WIN_WIDTH * 4;	
 	map->image->img_data = mlx_get_data_addr(map->image->img_ptr,
 	&map->image->bpp, &map->image->size_line, &map->image->endian);
 	i = -1;
@@ -44,32 +29,9 @@ void		ft_choise_proj(t_map *map)
 		{
 			line = ft_memalloc(sizeof(t_line));
 			if (i <= map->height && j < map->width - 1)
-			{
-				line->start.x = map->points[i][j].x;
-				line->start.y = map->points[i][j].y;
-				line->stop.x = map->points[i][j + 1].x;
-				line->stop.y = map->points[i][j + 1].y;
-				if (map->proj == 1)
-				{
-					iso(&line->start.x, &line->start.y, map->points[i][j].z * map->dz);
-					iso(&line->stop.x, &line->stop.y , map->points[i][j + 1].z * map->dz);
-				}
-				ft_print_line(map, line);
-
-			}
+				ft_horiz_line(i, j, line, map);
 			if (j <= map->width && i < map->height - 1)
-			{
-				line->start.x = map->points[i][j].x;
-				line->start.y = map->points[i][j].y;
-				line->stop.x = map->points[i + 1][j].x;
-				line->stop.y = map->points[i + 1][j].y;
-				if (map->proj == 1)
-				{
-					iso(&line->start.x, &line->start.y, map->points[i][j].z * map->dz);
-					iso(&line->stop.x, &line->stop.y, map->points[i + 1][j].z * map->dz);
-				}
-				ft_print_line(map ,line);
-			}
+				ft_vertic_line(i, j, line, map);
 			free(line);
 		}
 	}
@@ -83,7 +45,15 @@ static	void	ft_create_window(t_map *map)
 		map->mlx_ptr = mlx_init();
 		map->win_ptr = mlx_new_window(map->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FDF");
 	}
+	map->image = ft_memalloc(sizeof(t_image));
+	map->image->bpp = 64;
+	map->image->endian = 0;
+	map->image->size_line = WIN_WIDTH * 4;	
+	map->dx = 1;
 	map->dz = 1;
+	map->dy = 1;
+	map->xmove = 1;
+	map->ymove = 1;
 	map->proj = 0;
 	map->color = 0xE805FF;
 	ft_key_hook(map);
@@ -91,7 +61,7 @@ static	void	ft_create_window(t_map *map)
 	mlx_loop(map->mlx_ptr);
 }
 
-void	ft_push_coor(t_map *map, char *file)
+static	void	ft_push_coor(t_map *map, char *file)
 {
 	int		fd;
 	char	*line;
@@ -110,7 +80,7 @@ void	ft_push_coor(t_map *map, char *file)
 		{
 			map->points[i][j].x = j * ZOOM;
 			map->points[i][j].y = i * ZOOM;
-			map->points[i][j].z = ft_atoi(tmp[j]) * ZOOM / 2;
+			map->points[i][j].z = ft_atoi(tmp[j]) * ZOOM;
 		}
 		i++;
 		ft_frtwarr((void**)tmp, map->height);
@@ -119,18 +89,35 @@ void	ft_push_coor(t_map *map, char *file)
 	ft_create_window(map);
 }
 
+static	void	ft_valid_line(char *line)
+{
+	int		i;
+	
+	i = -1;
+	while (line[++i] != '\0')
+		if (!ft_isspace(line[i]) && !ft_isdigit(line[i]))
+			exit(0);//error
+}
+
 void			ft_parse_points(t_map *map, char *file)
 {
 	int		fd;
 	char	*line;
 	int		i;
+	int		check;
 
 	if ((fd = open(file, O_RDONLY)) < 0)
 		return ;
 	map->height = 0;
+	map->width = 0;
 	while (get_next_line(fd, &line) > 0)
-	{
-		map->height++ == 0 ? map->width = ft_count_words(line) : 0;
+	{	
+		check = map->width;
+		ft_valid_line(line);
+		map->width = ft_count_words(line);
+		if (check != map->width && map->height != 0)
+			exit(0);//error
+		map->height++;
 		free(line);
 	}
 	map->points = (t_point**)malloc(sizeof(t_point*) * map->height);

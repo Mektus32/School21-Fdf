@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:35:36 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 16:06:00 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 18:50:38 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_H
 # define WIN_WIDTH		2500
 # define WIN_HEIGHT		1300
-# define MOVE 350
-# define ZOOM 8
+# define MOVE 0
+# define ZOOM 1
 # define SPEED 3
 # include <stdio.h>
 # include <unistd.h>
@@ -64,6 +64,10 @@ typedef struct		s_map
 	int			proj;
 	char		*file;
 	int			dz;
+	int			dx;
+	int			dy;
+	int			xmove;
+	int			ymove;
 }					t_map;
 
 typedef struct		s_line
@@ -82,6 +86,7 @@ void				ft_parse_points(t_map *map, char *file);
 void				ft_key_hook(t_map *map);
 void				ft_print_line(t_map *map, t_line *line);
 void				ft_choise_proj(t_map *map);
-void				ft_push_coor(t_map *map, char *file);
+void				ft_horiz_line(int i, int j, t_line *line, t_map *map);
+void				ft_vertic_line(int i, int j, t_line *line, t_map *map);
 
 #endif

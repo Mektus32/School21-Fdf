@@ -6,7 +6,7 @@
 #    By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 11:10:50 by ojessi            #+#    #+#              #
-#    Updated: 2019/06/07 18:19:58 by ojessi           ###   ########.fr        #
+#    Updated: 2019/06/08 17:41:02 by ojessi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME = fdf
 SRC =	main.c \
 		key_hook.c \
 		print_line.c \
-		parse_points.c
+		projections.c \
+		parse_points.c \
+		
 		
 
 OBJ = $(addprefix $(OBJDIR), $(SRC:.c=.o))
