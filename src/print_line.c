@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:06:21 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 12:52:10 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 20:23:34 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,46 @@ void	ft_print_line(t_map *map, t_line *line)
 				arr[0] = 0;
 		} 
 	}
+}
+
+void	ft_print_mouse_line(int x0, int y0, int x1, int y1, t_map *map)
+{
+  int A, B, sign;
+  A = y1 - y0;
+  B = x0 - x1;
+  if (abs(A) > abs(B)) sign = 1;
+  else sign = -1;
+  int signa, signb;
+  if (A < 0) signa = -1;
+  else signa = 1;
+  if (B < 0) signb = -1;
+  else signb = 1;
+  int f = 0;
+  mlx_pixel_put(map->mlx_ptr, map->win_ptr, x0, y0, map->color);
+  int x = x0, y = y0;
+  if (sign == -1) 
+  {
+    do {
+      f += A*signa;
+      if (f > 0)
+      {
+        f -= B*signb;
+        y += signa;
+      }
+      x -= signb;
+      mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, map->color);
+    } while (x != x1 || y != y1);
+  }
+  else
+  {
+    do {
+      f += B*signb;
+      if (f > 0) {
+        f -= A*signa;
+        x -= signb;
+      }
+      y += signa;
+      mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, map->color);
+    } while (x != x1 || y != y1);
+  }
 }

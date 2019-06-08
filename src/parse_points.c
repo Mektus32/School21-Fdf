@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:03:14 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 18:40:36 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 21:45:11 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,13 @@ void		ft_choise_proj(t_map *map)
 		{
 			line = ft_memalloc(sizeof(t_line));
 			if (i <= map->height && j < map->width - 1)
+				map->d3 == 1 ? ft_horiz_line_3d(i, j, line, map) :
 				ft_horiz_line(i, j, line, map);
+				//ft_horiz_line(i, j, line, map);
 			if (j <= map->width && i < map->height - 1)
+				map->d3 == 1 ? ft_vertic_line_3d(i, j, line, map) :
 				ft_vertic_line(i, j, line, map);
+				//ft_vertic_line(i, j, line, map);
 			free(line);
 		}
 	}
@@ -55,6 +59,7 @@ static	void	ft_create_window(t_map *map)
 	map->xmove = 1;
 	map->ymove = 1;
 	map->proj = 0;
+	map->d3 = 0;
 	map->color = 0xE805FF;
 	ft_key_hook(map);
 	ft_choise_proj(map);
@@ -95,7 +100,7 @@ static	void	ft_valid_line(char *line)
 	
 	i = -1;
 	while (line[++i] != '\0')
-		if (!ft_isspace(line[i]) && !ft_isdigit(line[i]))
+		if (!ft_isspace(line[i]) && !ft_isdigit(line[i]) && line[i] != '-')
 			exit(0);//error
 }
 

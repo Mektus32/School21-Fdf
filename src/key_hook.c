@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:58:40 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 18:52:35 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/08 22:11:32 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,16 @@ static	int		keyboard(int key, void *param)
 		map->ymove = 1;
 		map->proj = 0;
 		map->color = 0xE805FF;
+		map->d3 = 0;
+		ft_frtwarr((void**)map->points3d, map->height);
+		map->points3d = NULL;
 	}
 	if (key == 35)
+	{
 		map->proj = map->proj == 0 ?  1 : 0;
+		map->d3 = map->d3 == 0 ? 1 : 0;
+	}
+	map->d3 == 1 ? rotation(key, map) : 0;
 	zoom(key, map);
 	mlx_destroy_image(map->mlx_ptr, map->image->img_ptr);
 	ft_choise_proj(map);
@@ -97,4 +104,5 @@ static	int		keyboard(int key, void *param)
 void				ft_key_hook(t_map *map)
 {
 	mlx_hook(map->win_ptr, 2, 0, keyboard, map);
+	mlx_hook(map->win_ptr, 4, 0, mouse_press, map);
 }
