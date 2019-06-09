@@ -6,13 +6,13 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:06:21 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 20:23:34 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 16:52:00 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-#define INDEX (line->start.x + line->start.y * WIN_WIDTH)
+#define INDEX ((int)line->start.x + (int)line->start.y * WIN_WIDTH)
 #define INDEX2 (x + y * WIN_WIDTH)
 
 void	ft_print_line(t_map *map, t_line *line)

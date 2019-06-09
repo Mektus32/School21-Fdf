@@ -6,21 +6,21 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 16:56:52 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 21:52:13 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 16:55:59 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void iso(int *x, int *y, int z)
+static void iso(double *x, double *y, double z)
 {
     int previous_x;
     int previous_y;
 
     previous_x = *x;
     previous_y = *y;
-    *x = (previous_x - previous_y) * cos(0.523599);
-    *y = -z  + (previous_x + previous_y) * sin(0.523599);
+    *x = (int)((previous_x - previous_y) * cos(0.523599));
+    *y = (int)(-z  + (previous_x + previous_y) * sin(0.523599));
 }
 
 void	ft_horiz_line(int i, int j, t_line *line, t_map *map)

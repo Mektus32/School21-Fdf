@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:03:14 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 21:45:11 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 19:23:33 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,14 @@ void		ft_choise_proj(t_map *map)
 			if (i <= map->height && j < map->width - 1)
 				map->d3 == 1 ? ft_horiz_line_3d(i, j, line, map) :
 				ft_horiz_line(i, j, line, map);
-				//ft_horiz_line(i, j, line, map);
 			if (j <= map->width && i < map->height - 1)
 				map->d3 == 1 ? ft_vertic_line_3d(i, j, line, map) :
 				ft_vertic_line(i, j, line, map);
-				//ft_vertic_line(i, j, line, map);
 			free(line);
 		}
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->image->img_ptr, 0, 0);
+	mlx_string_put(map->mlx_ptr, map->win_ptr, 100, 200, 0xBAFF05, "ARINA");
 }
 
 static	void	ft_create_window(t_map *map)
@@ -53,14 +52,7 @@ static	void	ft_create_window(t_map *map)
 	map->image->bpp = 64;
 	map->image->endian = 0;
 	map->image->size_line = WIN_WIDTH * 4;	
-	map->dx = 1;
-	map->dz = 1;
-	map->dy = 1;
-	map->xmove = 1;
-	map->ymove = 1;
-	map->proj = 0;
-	map->d3 = 0;
-	map->color = 0xE805FF;
+	ft_init_map(map);
 	ft_key_hook(map);
 	ft_choise_proj(map);
 	mlx_loop(map->mlx_ptr);
@@ -83,8 +75,8 @@ static	void	ft_push_coor(t_map *map, char *file)
 		j = -1;
 		while (++j < map->width)
 		{
-			map->points[i][j].x = j * ZOOM;
-			map->points[i][j].y = i * ZOOM;
+			map->points[i][j].x = (j - map->width / 2) * ZOOM;
+			map->points[i][j].y = (i - map->height / 2)* ZOOM;
 			map->points[i][j].z = ft_atoi(tmp[j]) * ZOOM;
 		}
 		i++;

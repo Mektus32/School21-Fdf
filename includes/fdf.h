@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:35:36 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 22:02:20 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 18:46:36 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 typedef	struct		s_point
 {
-	int		x;
-	int		y;
-	int		z;
+	double		x;
+	double		y;
+	double		z;
 }					t_point;
 
 typedef	struct		s_mouse
@@ -41,9 +41,6 @@ typedef	struct		s_mouse
 	int		ispress;
 	int		x3d;
 	int		y3d;
-	int		anglex;
-	int		angley;
-	int		anglez;
 }					t_mouse;
 
 typedef struct		s_image
@@ -100,5 +97,6 @@ void				ft_horiz_line_3d(int i, int j, t_line *line, t_map *map);
 void				ft_vertic_line_3d(int i, int j, t_line *line, t_map *map);
 int					mouse_press(int button, int x, int y, void *param);
 int					rotation(int key, void *param);
+void				ft_init_map(t_map *map);
 
 #endif

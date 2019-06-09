@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 20:12:31 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 22:07:36 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 17:02:27 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@ int		mouse_press(int	button, int x, int y, void *param)
 	
 	map = param;
 	if (map->mouse == NULL)
-	{
 		map->mouse = ft_memalloc(sizeof(t_mouse));
-		map->mouse->anglex = 0;
-		map->mouse->angley = 0;
-		map->mouse->anglez = 0;
-	}
 	if (button == 1)
 	{
 		map->mouse->x = x;
@@ -44,48 +39,48 @@ int		mouse_press(int	button, int x, int y, void *param)
 	return (0);
 }
 
-static	void	x_rotation(int x, int *y, int *z, t_map *map)
+static	void	x_rotation(double x, double *y, double *z)
 {
-	int		tmpx;
-	int		tmpy;
-	int		tmpz;
+	int			tmpx;
+	double		tmpy;
+	double		tmpz;
 
 	tmpx = x;
 	tmpy = *y;
 	tmpz = *z;
 
 	x = tmpx;
-	*y = (double)tmpy * cos(map->mouse->anglex) + (double)tmpz * sin(map->mouse->anglex);
-	*z = (double)-tmpy * sin(map->mouse->anglex) + (double)tmpz * cos(map->mouse->anglex);
+	*y = (double)tmpy * cos(0.05) + (double)tmpz * sin(0.05);
+	*z = (double)-tmpy * sin(0.05) + (double)tmpz * cos(0.05);
 }
 
-static	void	y_rotation(int *x, int y, int *z, t_map *map)
+static	void	y_rotation(double *x, double y, double *z)
 {
-	int		tmpx;
-	int		tmpy;
-	int		tmpz;
+	double		tmpx;
+	int			tmpy;
+	double		tmpz;
 
 	tmpx = *x;
 	tmpy = y;
 	tmpz = *z;
 
-	*x = (double)tmpx * cos(map->mouse->angley) + (double)tmpz * sin(map->mouse->angley);
+	*x = (double)tmpx * cos(0.05) + (double)tmpz * sin(0.05);
 	y = tmpy;
-	*z = (double)-tmpx * sin(map->mouse->angley) + (double)tmpz * cos(map->mouse->angley);
+	*z = (double)-tmpx * sin(0.05) + (double)tmpz * cos(0.05);
 }
 
-static	void	z_rotation(int *x, int *y, int z, t_map *map)
+static	void	z_rotation(double *x, double *y, double z)
 {
-	int		tmpx;
-	int		tmpy;
-	int		tmpz;
+	double		tmpx;
+	double		tmpy;
+	int			tmpz;
 
 	tmpx = *x;
 	tmpy = *y;
 	tmpz = z;
 
-	*x = (double)tmpx * cos(map->mouse->anglez) - (double)tmpy * sin(map->mouse->anglez);
-	*y = (double)tmpx * sin(map->mouse->anglez) + (double)tmpy * cos(map->mouse->anglez);
+	*x = (double)tmpx * cos(0.05) - (double)tmpy * sin(0.05);
+	*y = (double)tmpx * sin(0.05) + (double)tmpy * cos(0.05);
 	z = tmpy;
 }
 
@@ -115,12 +110,7 @@ int		rotation(int key, void *param)
 		}
 	}
 	if (map->mouse == NULL)
-	{
 		map->mouse = ft_memalloc(sizeof(t_mouse));
-		map->mouse->anglex = 0;
-		map->mouse->angley = 0;
-		map->mouse->anglez = 0;
-	}
 	i = -1;
 	while (++i < map->height)
 	{
@@ -130,20 +120,17 @@ int		rotation(int key, void *param)
 			if (key == 17)
 			{
 				y_rotation(&map->points3d[i][j].x, map->points3d[i][j].y,
-				&map->points3d[i][j].z, map);
-				map->mouse->angley++;
+				&map->points3d[i][j].z);
 			}
 			if (key == 37)
 			{
 				x_rotation(map->points3d[i][j].x, &map->points3d[i][j].y,
-				&map->points3d[i][j].z, map);
-				map->mouse->anglex++;
+				&map->points3d[i][j].z);
 			}
 			if (key == 15)
 			{
 				z_rotation(&map->points3d[i][j].x, &map->points3d[i][j].y,
-				map->points3d[i][j].z, map);
-				map->mouse->anglez++;
+				map->points3d[i][j].z);
 			}
 		}
 	}

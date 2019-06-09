@@ -6,12 +6,21 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:58:40 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/08 22:11:32 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 18:47:04 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+static	int		expose(void *param)
+{
+	t_map	*map;
+
+	map = param;
+	(void)map;
+	exit(0);
+	return (0);
+}
 
 static	void	move_and_exit(int key, t_map *map)
 {
@@ -77,18 +86,7 @@ static	int		keyboard(int key, void *param)
 		k++;
 	}
 	if (key == 1)
-	{
-		map->dx = 1;
-		map->dz = 1;
-		map->dy = 1;
-		map->xmove = 1;
-		map->ymove = 1;
-		map->proj = 0;
-		map->color = 0xE805FF;
-		map->d3 = 0;
-		ft_frtwarr((void**)map->points3d, map->height);
-		map->points3d = NULL;
-	}
+		ft_init_map(map);
 	if (key == 35)
 	{
 		map->proj = map->proj == 0 ?  1 : 0;
@@ -104,5 +102,6 @@ static	int		keyboard(int key, void *param)
 void				ft_key_hook(t_map *map)
 {
 	mlx_hook(map->win_ptr, 2, 0, keyboard, map);
+	mlx_hook(map->win_ptr, 17, 0, expose, map);
 	mlx_hook(map->win_ptr, 4, 0, mouse_press, map);
 }
