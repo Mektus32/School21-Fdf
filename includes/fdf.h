@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:35:36 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 18:46:36 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 21:55:36 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define FDF_H
 # define WIN_WIDTH		2500
 # define WIN_HEIGHT		1300
-# define MOVE 0
-# define ZOOM 4
-# define SPEED 3
+# define SPEED 10
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -36,11 +34,12 @@ typedef	struct		s_mouse
 {
 	int		x;
 	int		y;
-	int		endX;
-	int		endY;
+	int		endx;
+	int		endy;
 	int		ispress;
 	int		x3d;
 	int		y3d;
+	double	angel;
 }					t_mouse;
 
 typedef struct		s_image
@@ -50,7 +49,7 @@ typedef struct		s_image
 	int		bpp;
 	int		size_line;
 	int		endian;
-	
+
 }					t_image;
 
 typedef struct		s_map
@@ -84,12 +83,19 @@ typedef struct		s_line
 	int			sy;
 	int			err;
 	int			err2;
+	int			f;
+	int			color;
 }					t_line;
 
 void				ft_parse_points(t_map *map, char *file);
 void				ft_key_hook(t_map *map);
 void				ft_print_line(t_map *map, t_line *line);
-void				ft_print_mouse_line(int x0, int y0, int x1, int y1, t_map *map);
+void				ft_print_mouse_line(t_line *line, t_map *map);
+void				ft_mouse_one(int x, int y, t_line *line, t_map *map);
+void				ft_mouse_two(int x, int y, t_line *line, t_map *map);
+void				ft_mouse_three(t_map *map);
+void				ft_line_one(int x, int y, t_line *line, int *arr);
+void				ft_line_two(int x, int y, t_line *line, int *arr);
 void				ft_choise_proj(t_map *map);
 void				ft_horiz_line(int i, int j, t_line *line, t_map *map);
 void				ft_vertic_line(int i, int j, t_line *line, t_map *map);
@@ -98,5 +104,12 @@ void				ft_vertic_line_3d(int i, int j, t_line *line, t_map *map);
 int					mouse_press(int button, int x, int y, void *param);
 int					rotation(int key, void *param);
 void				ft_init_map(t_map *map);
+void				ft_init_image(t_map *map);
+void				ft_init_3d_and_mouse(t_map *map);
+void				ft_print_menu(t_map *map);
+void				z_rotation(double *x, double *y, double z, t_map *map);
+void				y_rotation(double *x, double y, double *z, t_map *map);
+void				x_rotation(double x, double *y, double *z, t_map *map);
+void				iso(double *x, double *y, double z);
 
 #endif

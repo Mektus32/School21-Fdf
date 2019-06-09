@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_frtwarr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ojessi <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 09:25:06 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/04 09:26:31 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 22:05:18 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	ft_frtwarr(void **arr, int size)
 	i = -1;
 	while (++i < size && arr[i] != NULL)
 		free(arr[i]);
-	free(arr);	
+	free(arr);
 }

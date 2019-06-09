@@ -6,13 +6,15 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:03:14 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 19:23:33 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 19:50:54 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		ft_choise_proj(t_map *map)
+#define PTR map->mlx_ptr
+
+void			ft_choise_proj(t_map *map)
 {
 	int		i;
 	int		j;
@@ -37,8 +39,8 @@ void		ft_choise_proj(t_map *map)
 			free(line);
 		}
 	}
-	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->image->img_ptr, 0, 0);
-	mlx_string_put(map->mlx_ptr, map->win_ptr, 100, 200, 0xBAFF05, "ARINA");
+	mlx_put_image_to_window(PTR, map->win_ptr, map->image->img_ptr, 0, 0);
+	ft_print_menu(map);
 }
 
 static	void	ft_create_window(t_map *map)
@@ -46,12 +48,11 @@ static	void	ft_create_window(t_map *map)
 	if (map->mlx_ptr == NULL)
 	{
 		map->mlx_ptr = mlx_init();
-		map->win_ptr = mlx_new_window(map->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "FDF");
+		map->win_ptr = mlx_new_window(map->mlx_ptr, WIN_WIDTH,
+		WIN_HEIGHT, "FDF");
 	}
-	map->image = ft_memalloc(sizeof(t_image));
-	map->image->bpp = 64;
-	map->image->endian = 0;
-	map->image->size_line = WIN_WIDTH * 4;	
+	if (map->image == NULL)
+		ft_init_image(map);
 	ft_init_map(map);
 	ft_key_hook(map);
 	ft_choise_proj(map);
@@ -75,9 +76,9 @@ static	void	ft_push_coor(t_map *map, char *file)
 		j = -1;
 		while (++j < map->width)
 		{
-			map->points[i][j].x = (j - map->width / 2) * ZOOM;
-			map->points[i][j].y = (i - map->height / 2)* ZOOM;
-			map->points[i][j].z = ft_atoi(tmp[j]) * ZOOM;
+			map->points[i][j].x = (j - map->width / 2) * 10;
+			map->points[i][j].y = (i - map->height / 2) * 10;
+			map->points[i][j].z = ft_atoi(tmp[j]) * 10;
 		}
 		i++;
 		ft_frtwarr((void**)tmp, map->height);
@@ -86,14 +87,22 @@ static	void	ft_push_coor(t_map *map, char *file)
 	ft_create_window(map);
 }
 
-static	void	ft_valid_line(char *line)
+static	void	ft_valid_line(char *line, int check, t_map *map)
 {
 	int		i;
-	
+
 	i = -1;
 	while (line[++i] != '\0')
 		if (!ft_isspace(line[i]) && !ft_isdigit(line[i]) && line[i] != '-')
-			exit(0);//error
+		{
+			write(1, "invalid file\n", 13);
+			exit(-1);
+		}
+	if (check != map->width && map->height != 0)
+	{
+		write(1, "invalid file\n", 13);
+		exit(-1);
+	}
 }
 
 void			ft_parse_points(t_map *map, char *file)
@@ -108,12 +117,10 @@ void			ft_parse_points(t_map *map, char *file)
 	map->height = 0;
 	map->width = 0;
 	while (get_next_line(fd, &line) > 0)
-	{	
+	{
 		check = map->width;
-		ft_valid_line(line);
 		map->width = ft_count_words(line);
-		if (check != map->width && map->height != 0)
-			exit(0);//error
+		ft_valid_line(line, check, map);
 		map->height++;
 		free(line);
 	}

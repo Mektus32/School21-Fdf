@@ -6,7 +6,7 @@
 #    By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 11:10:50 by ojessi            #+#    #+#              #
-#    Updated: 2019/06/08 20:24:02 by ojessi           ###   ########.fr        #
+#    Updated: 2019/06/09 21:22:17 by ojessi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME = fdf
 SRC =	main.c \
 		mouse.c \
 		key_hook.c \
+		calc_coor.c \
 		print_line.c \
+		print_line2.c \
 		projections.c \
 		parse_points.c \
 		

@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 18:18:09 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/07 12:34:07 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/09 21:59:47 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,13 @@ float				ft_truncf(float nbr);
 int					ft_pow(int nbr, int power);
 char				*ft_free_strjoin_duo(char const *s1, char const *s2);
 char				*ft_free_strjoin_rev(char *src, char *new);
-char    			*ft_ftoa(long double nbr);
+char				*ft_ftoa(long double nbr);
 char				*ft_ltoa_base(long n, int base);
 char				*ft_ltoa(long n);
-char 				*ft_ultoa_base(unsigned long n, int base);
-char    			*ft_ultoa(unsigned long n);
+char				*ft_ultoa_base(unsigned long n, int base);
+char				*ft_ultoa(unsigned long n);
 void				ft_frtwarr(void **arr, int size);
-void                ft_list_remove_free_if(t_list **begin_list, int elem);
+void				ft_list_remove_free_if(t_list **begin_list, int elem);
 int					get_next_line(int fd, char **line);
 
 #endif
