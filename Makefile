@@ -6,11 +6,11 @@
 #    By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 11:10:50 by ojessi            #+#    #+#              #
-#    Updated: 2019/06/10 17:13:57 by ojessi           ###   ########.fr        #
+#    Updated: 2019/06/10 23:06:36 by ojessi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all, obj, clean, fclean, re
+.PHONY: all, obj, clean, fclean, red, re
 
 NAME = fdf
 
@@ -49,7 +49,13 @@ SRCDIR	= ./src/
 INCDIR	= ./includes/
 OBJDIR	= ./obj/
 
-all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
+all: obj $(FT_LIB) $(MLX_LIB) grn $(NAME)
+
+red:
+	@echo "\x1B[31m"
+	
+grn:
+	@echo "\x1B[32m"
 
 obj:
 	mkdir -p $(OBJDIR)
@@ -64,9 +70,9 @@ $(MLX_LIB):
 	make -C $(MLX)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
 
-clean:
+clean: red
 	rm -rf $(OBJDIR)
 	make -C $(FT) clean
 	make -C $(MLX) clean
