@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 21:16:51 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 21:57:45 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/10 16:37:37 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_mouse_three(t_map *map)
 	free(line);
 }
 
-void	ft_line_one(int x, int y, t_line *line, int *arr)
+void	ft_line_one(int x, int y, t_line *line, int **arr)
 {
 	while (x != line->stop.x || y != line->stop.y)
 	{
@@ -71,13 +71,13 @@ void	ft_line_one(int x, int y, t_line *line, int *arr)
 		}
 		x -= line->sx;
 		if (!(INDEX2 < 0 || INDEX2 > WIN_WIDTH * WIN_HEIGHT))
-			arr[INDEX2] = line->color;
+			(*arr)[INDEX2] = line->color;
 		else
-			arr[0] = 0;
+			(*arr)[0] = 0;
 	}
 }
 
-void	ft_line_two(int x, int y, t_line *line, int *arr)
+void	ft_line_two(int x, int y, t_line *line, int **arr)
 {
 	while (x != line->stop.x || y != line->stop.y)
 	{
@@ -89,8 +89,8 @@ void	ft_line_two(int x, int y, t_line *line, int *arr)
 		}
 		y += line->sy;
 		if (!(INDEX2 < 0 || INDEX2 > WIN_WIDTH * WIN_HEIGHT))
-			arr[INDEX2] = line->color;
+			(*arr)[INDEX2] = line->color;
 		else
-			arr[0] = 0;
+			(*arr)[0] = 0;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:35:36 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 21:55:36 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/10 17:15:19 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void				ft_print_mouse_line(t_line *line, t_map *map);
 void				ft_mouse_one(int x, int y, t_line *line, t_map *map);
 void				ft_mouse_two(int x, int y, t_line *line, t_map *map);
 void				ft_mouse_three(t_map *map);
-void				ft_line_one(int x, int y, t_line *line, int *arr);
-void				ft_line_two(int x, int y, t_line *line, int *arr);
+void				ft_line_one(int x, int y, t_line *line, int **arr);
+void				ft_line_two(int x, int y, t_line *line, int **arr);
 void				ft_choise_proj(t_map *map);
 void				ft_horiz_line(int i, int j, t_line *line, t_map *map);
 void				ft_vertic_line(int i, int j, t_line *line, t_map *map);

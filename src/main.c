@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 15:54:01 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 20:57:08 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/10 16:01:48 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_init_map(t_map *map)
 void	ft_init_image(t_map *map)
 {
 	map->image = ft_memalloc(sizeof(t_image));
+	map->image->img_data ? free(map->image->img_data) : 0;
 	map->image->bpp = 64;
 	map->image->endian = 0;
 	map->image->size_line = WIN_WIDTH * 4;

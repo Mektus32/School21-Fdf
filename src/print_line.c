@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:06:21 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 21:45:40 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/10 16:36:00 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	ft_print_line(t_map *map, t_line *line)
 	x = line->start.x;
 	y = line->start.y;
 	if ((abs(line->dy) > abs(line->dx) ? 1 : -1) == -1)
-		ft_line_one(x, y, line, arr);
+		ft_line_one(x, y, line, &arr);
 	else
-		ft_line_two(x, y, line, arr);
+		ft_line_two(x, y, line, &arr);
 }
 
 void	ft_print_mouse_line(t_line *line, t_map *map)

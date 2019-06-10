@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:03:14 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 19:50:54 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/10 17:06:21 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ static	void	ft_push_coor(t_map *map, char *file)
 		j = -1;
 		while (++j < map->width)
 		{
-			map->points[i][j].x = (j - map->width / 2) * 10;
-			map->points[i][j].y = (i - map->height / 2) * 10;
-			map->points[i][j].z = ft_atoi(tmp[j]) * 10;
+			map->points[i][j].x = (j - map->width / 2) * 3;
+			map->points[i][j].y = (i - map->height / 2) * 3;
+			map->points[i][j].z = ft_atoi(tmp[j]) * 5;
 		}
 		i++;
-		ft_frtwarr((void**)tmp, map->height);
+		ft_frtwarr((void**)tmp, map->width);
 		free(line);
 	}
 	ft_create_window(map);

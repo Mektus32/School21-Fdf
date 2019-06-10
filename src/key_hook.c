@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:58:40 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/09 20:19:31 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/10 17:04:03 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ static	int		expose(void *param)
 static	void	move_and_exit(int key, t_map *map)
 {
 	if (key == 53)
-	{
-		ft_frtwarr((void**)map->points, map->height);
 		exit(0);
-	}
 	if (key == 126)
 	{
 		map->ymove -= SPEED;
