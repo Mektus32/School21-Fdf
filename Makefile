@@ -6,11 +6,11 @@
 #    By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/07 11:10:50 by ojessi            #+#    #+#              #
-#    Updated: 2019/06/10 23:06:36 by ojessi           ###   ########.fr        #
+#    Updated: 2019/06/11 12:33:46 by ojessi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all, obj, clean, fclean, red, re
+.PHONY: all, obj, clean, fclean, red, re, off
 
 NAME = fdf
 
@@ -49,7 +49,7 @@ SRCDIR	= ./src/
 INCDIR	= ./includes/
 OBJDIR	= ./obj/
 
-all: obj $(FT_LIB) $(MLX_LIB) grn $(NAME)
+all: obj $(FT_LIB) $(MLX_LIB) grn $(NAME) off
 
 red:
 	@echo "\x1B[31m"
@@ -57,20 +57,24 @@ red:
 grn:
 	@echo "\x1B[32m"
 
+off:
+	@echo "\x1b[0m"
+
 obj:
-	mkdir -p $(OBJDIR)
+	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
 	$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
 $(FT_LIB):
-	make -C $(FT)
+	@make -C $(FT)
 
 $(MLX_LIB):
-	make -C $(MLX)
+	@make -C $(MLX)
 
 $(NAME): $(OBJ)
 	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+	@echo "\x1b[0m"
 
 clean: red
 	rm -rf $(OBJDIR)

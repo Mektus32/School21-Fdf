@@ -6,13 +6,15 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 16:03:14 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/10 17:06:21 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/11 15:12:44 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 #define PTR map->mlx_ptr
+#define LOL ",0x"
+#define XOX ",0X"
 
 void			ft_choise_proj(t_map *map)
 {
@@ -93,11 +95,15 @@ static	void	ft_valid_line(char *line, int check, t_map *map)
 
 	i = -1;
 	while (line[++i] != '\0')
+	{
+		if (!ft_strncmp(&line[i], LOL, 3) || !ft_strncmp(&line[i], XOX, 3))
+			i += 9;
 		if (!ft_isspace(line[i]) && !ft_isdigit(line[i]) && line[i] != '-')
 		{
 			write(1, "invalid file\n", 13);
 			exit(-1);
 		}
+	}
 	if (check != map->width && map->height != 0)
 	{
 		write(1, "invalid file\n", 13);

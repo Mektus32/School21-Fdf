@@ -6,11 +6,11 @@
 #    By: ojessi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 15:28:54 by ojessi            #+#    #+#              #
-#    Updated: 2019/06/07 11:08:01 by ojessi           ###   ########.fr        #
+#    Updated: 2019/06/11 12:34:11 by ojessi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all, clean, fclean, re, obj, grn
+.PHONY: all, clean, fclean, re, obj, grn, off
 
 NAME = libft.a
 #src / obj files
@@ -107,10 +107,13 @@ CFLAGS = -Wextra -Wall -Werror -g
 INCDIR = ./includes/
 OBJDIR = ./obj/
 
-all: obj grn $(NAME)
+all: obj grn $(NAME) off
 
 grn:
 	@echo "\x1B[32m"
+
+off:
+	@echo "\x1b[0m"
 
 obj:
 	mkdir -p $(OBJDIR)
@@ -121,7 +124,6 @@ $(OBJDIR)%.o:%.c
 $(NAME): $(OBJ)	
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\x1B[0m"
 
 clean:
 	@/bin/rm -rf $(OBJ)
