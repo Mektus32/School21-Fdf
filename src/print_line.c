@@ -6,7 +6,7 @@
 /*   By: ojessi <ojessi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:06:21 by ojessi            #+#    #+#             */
-/*   Updated: 2019/06/10 16:36:00 by ojessi           ###   ########.fr       */
+/*   Updated: 2019/06/11 12:16:51 by ojessi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 #define INDEX ((int)line->start.x + (int)line->start.y * WIN_WIDTH)
 #define INDEX2 (x + y * WIN_WIDTH)
 
-void	ft_print_line(t_map *map, t_line *line)
+static	void	ft_init_param(t_line *line)
 {
-	int		*arr;
-	int		x;
-	int		y;
-
 	line->start.x += WIN_WIDTH / 2;
 	line->start.y += WIN_HEIGHT / 2;
 	line->stop.x += WIN_WIDTH / 2;
@@ -29,10 +25,21 @@ void	ft_print_line(t_map *map, t_line *line)
 	line->dx = line->start.x - line->stop.x;
 	line->sy = line->dy < 0 ? -1 : 1;
 	line->sx = line->dx < 0 ? -1 : 1;
+}
+
+void			ft_print_line(t_map *map, t_line *line)
+{
+	int		*arr;
+	int		x;
+	int		y;
+
+	ft_init_param(line);
 	arr = (int*)map->image->img_data;
 	line->f = 0;
 	line->color = map->color;
-	if (!(INDEX < 0 || INDEX > WIN_WIDTH * WIN_HEIGHT))
+	if (!(INDEX < 0 || INDEX > WIN_WIDTH * WIN_HEIGHT) &&
+	line->start.x > 0 && line->start.x < WIN_WIDTH &&
+	line->start.y > 0 && line->start.y < WIN_HEIGHT)
 		arr[INDEX] = line->color;
 	else
 		arr[0] = 0;
@@ -44,7 +51,7 @@ void	ft_print_line(t_map *map, t_line *line)
 		ft_line_two(x, y, line, &arr);
 }
 
-void	ft_print_mouse_line(t_line *line, t_map *map)
+void			ft_print_mouse_line(t_line *line, t_map *map)
 {
 	int		sign;
 	int		x;
